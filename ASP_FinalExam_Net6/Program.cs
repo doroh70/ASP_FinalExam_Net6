@@ -10,6 +10,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase(databaseName: "FinalExamDB"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = "960145122540-7n2s6n5e8mmvjr23ae2ttdq24g1d14pu.apps.googleusercontent.com";
+    googleOptions.ClientSecret = "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";
+});
+
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
@@ -32,6 +39,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseAuthentication();
 app.UseAuthorization();
